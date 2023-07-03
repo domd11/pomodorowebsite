@@ -1,5 +1,6 @@
 .App {
   text-align: center;
+  padding: 10px;
 }
 
 .App-logo {
@@ -50,4 +51,18 @@
 
 .tomato {
   margin-right: 2px;
+}
+
+.big-icon {
+  width: 30px;
+  height: 30px;
+}
+
+.small-tomato {
+  height: 25px;
+  padding-right: 2px;
+}
+
+.pfp-image {
+  border-radius: 100px;
 }

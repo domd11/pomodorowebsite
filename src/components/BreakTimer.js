@@ -1,53 +1,42 @@
-import { doc, updateDoc } from 'firebase/firestore';
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef } from 'react'
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { FaRegCirclePlay, FaRegCirclePause, FaArrowRotateRight, FaRegCircleXmark } from "react-icons/fa6"
-import { auth, db } from '../firebase';
-const Timer = ({ setFocusTimerStart, setFocusSessionCompleted, focusSessionCompleted, userData, checkDocumentExists }) => {
+import { auth } from '../firebase';
+
+const BreakTimer = ({ setBreakTimerStart, userData }) => {
   const [isPaused, setIsPaused] = useState(false);
   const intervalRef = useRef(null);
-  const [time, setTime] = useState(null)
   const [user, loading] = useAuthState(auth)
-  const [countdown, setCountdown] = useState(null); // 10 minutes in seconds
+  const [time, setTime] = useState(10)
+  const initialCountdown = time * 60;
+  const [countdown, setCountdown] = useState(initialCountdown); // 10 minutes in seconds
 
 
-  const checkIfUser = () => {
-    if (user) {
-      setCountdown(userData.focusTime * 60)
-    } else {
-      setCountdown(60)
-    }
+  const checkIfUer = () => {
+      if (user) {
+        setCountdown(userData.breakTime * 60)
+      } else {
+        setCountdown(60)
+      }
   }
-  
 
   useEffect(() => {
     if (countdown === 0) {
       clearInterval(intervalRef.current);
-        setFocusTimerStart(false);
-        setFocusSessionCompleted(focusSessionCompleted + 1)
+        setBreakTimerStart(false);
 
-        updateDoc(doc(db, "users", user.uid), {
-          completedSessions: userData.completedSessions+1,
-        })
-
-        checkDocumentExists()
-
-
-        // await updateDoc(doc(db, "users", user.uid), {
-        //   focusTime: focusTimeValue,
-        // })
       
     }
   }, [countdown]);
 
   useEffect(() => {
-    checkIfUser()
+    checkIfUer()
     if (!isPaused) {
       intervalRef.current = setInterval(() => {
         setCountdown(prevCountdown => {
             if (prevCountdown === 0) {
                 clearInterval(intervalRef.current);
-                setFocusTimerStart(false);
+                setBreakTimerStart(false);
               }
           return prevCountdown - 1;
         });
@@ -70,27 +59,25 @@ const Timer = ({ setFocusTimerStart, setFocusSessionCompleted, focusSessionCompl
     setIsPaused(false);
   }
 
-  const close = () => {
-    setFocusTimerStart(false)
-  }
-
   const formatTime = time => {
     const minutes = Math.floor(time / 60);
     const seconds = time % 60;
     return `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
   };
 
+  const close = () => {
+    setBreakTimerStart(false)
+  }
   return (
     <div>
-    <h3>Focus Timer</h3>
+    <h3>Break Timer</h3>
       <p className='timer'>{formatTime(countdown)}</p>
 
         {isPaused ? <FaRegCirclePlay className='icon' onClick={handlePause} /> : <FaRegCirclePause className='icon' onClick={handlePause} />}
         <FaArrowRotateRight className='icon' onClick={restart} />
-        <FaRegCircleXmark className='icon' onClick={close} />
-            
+        <FaRegCircleXmark className='icon'onClick={close} />
     </div>
   );
 };
 
-export default Timer;
+export default BreakTimer
