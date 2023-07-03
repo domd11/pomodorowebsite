@@ -95,8 +95,8 @@ function App() {
 
       
 <br />
-      <button onClick={() => setFocusTimerStart(true)}>START FOCUS TIMER</button>
-      <button onClick={() => setBreakTimerStart(true)}>START BREAK TIMER</button>
+      <button className='start-button' onClick={() => setFocusTimerStart(true)}>START FOCUS TIMER</button>
+      <button className='start-button' onClick={() => setBreakTimerStart(true)}>START BREAK TIMER</button>
       {focusTimerStart ? <FocusTimer setFocusTimerStart={setFocusTimerStart} checkDocumentExists={checkDocumentExists} userData={userData} setFocusSessionCompleted={setFocusSessionCompleted} focusSessionCompleted={focusSessionCompleted} /> : ""}
       {breakTimerStart ? <BreakTimer setBreakTimerStart={setBreakTimerStart} userData={userData} /> : ""}
       

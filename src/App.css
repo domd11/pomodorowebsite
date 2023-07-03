@@ -66,3 +66,14 @@
 .pfp-image {
   border-radius: 100px;
 }
+
+.start-button {
+  background-color: none;
+  border: none;
+  background: none;
+  margin-right: 10px;
+}
+
+.start-button:hover {
+  color: blue;
+}

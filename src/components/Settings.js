@@ -29,7 +29,7 @@ const Settings = ({ userData, checkDocumentExists }) => {
   }
 
   const generateRandomNumbers = () => {
-    const count = userData.completedSessions+1; // Number of random numbers to generate
+    const count = userData.completedSessions; // Number of random numbers to generate
 
     const randomNumbers = [];
     for (let i = 0; i < count; i++) {
@@ -43,7 +43,7 @@ const Settings = ({ userData, checkDocumentExists }) => {
   useEffect(() => {
     generateRandomNumbers()
     checkDocumentExists()
-    console.log(userData.completedSessions+1)
+
   }, [userData])
   
   return (
@@ -53,7 +53,7 @@ const Settings = ({ userData, checkDocumentExists }) => {
           <span>Change Focus Time: </span><input type='number' ref={focusTime} /><button onClick={focusTimeSettings}>Save</button>
           <br />
           <span>Change Break Time: </span><input type='number' ref={breakTime} /><button onClick={breakTimeSettings}>Save</button>
-          <h3>Total Completed Sessions</h3>
+          <h3>Total Completed Sessions: {userData.completedSessions}</h3>
           {numbers.map((number, index) => {
             return <img alt='tomato' className='small-tomato' src={tomato} key={index} />
           })}
