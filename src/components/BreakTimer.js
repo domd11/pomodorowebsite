@@ -5,39 +5,35 @@ import { auth } from '../firebase';
 
 const BreakTimer = ({ setBreakTimerStart, userData }) => {
   const [isPaused, setIsPaused] = useState(false);
-  const intervalRef = useRef(null);
+ 
   const [user, loading] = useAuthState(auth)
   const [time, setTime] = useState(10)
   const initialCountdown = time * 60;
   const [countdown, setCountdown] = useState(initialCountdown); // 10 minutes in seconds
+  const intervalRef = useRef(null);
+  const savedCountdownRef = useRef(initialCountdown);
 
-
-  const checkIfUer = () => {
-      if (user) {
-        setCountdown(userData.breakTime * 60)
-      } else {
-        setCountdown(60)
-      }
-  }
-
-  useEffect(() => {
-    if (countdown === 0) {
-      clearInterval(intervalRef.current);
-        setBreakTimerStart(false);
-
-      
+useEffect(() => {
+  const checkIfUser = () => {
+    if (user) {
+      setCountdown(userData.breakTime * 60)
+    } else {
+      setCountdown(60)
     }
-  }, [countdown]);
+}
+
+  checkIfUser();
+}, [])
 
   useEffect(() => {
-    checkIfUer()
+
     if (!isPaused) {
       intervalRef.current = setInterval(() => {
         setCountdown(prevCountdown => {
-            if (prevCountdown === 0) {
-                clearInterval(intervalRef.current);
-                setBreakTimerStart(false);
-              }
+          if (prevCountdown === 0) {
+            clearInterval(intervalRef.current);
+            // Handle timer completion
+          }
           return prevCountdown - 1;
         });
       }, 1000);
@@ -54,10 +50,16 @@ const BreakTimer = ({ setBreakTimerStart, userData }) => {
     setIsPaused(prevIsPaused => !prevIsPaused);
   };
 
-  const restart = () => {
-    setCountdown(time);
+  const handleRestart = () => {
+    clearInterval(intervalRef.current);
+    setCountdown(savedCountdownRef.current);
     setIsPaused(false);
-  }
+  };
+
+  useEffect(() => {
+    savedCountdownRef.current = countdown;
+  }, [countdown]);
+  
 
   const formatTime = time => {
     const minutes = Math.floor(time / 60);
@@ -74,7 +76,7 @@ const BreakTimer = ({ setBreakTimerStart, userData }) => {
       <p className='timer'>{formatTime(countdown)}</p>
 
         {isPaused ? <FaRegCirclePlay className='icon' onClick={handlePause} /> : <FaRegCirclePause className='icon' onClick={handlePause} />}
-        <FaArrowRotateRight className='icon' onClick={restart} />
+        <FaArrowRotateRight className='icon' onClick={handleRestart} />
         <FaRegCircleXmark className='icon'onClick={close} />
     </div>
   );

@@ -3,7 +3,7 @@ import { auth, db } from '../firebase'
 import { useAuthState } from "react-firebase-hooks/auth"
 import { collection, doc, getDoc, setDoc, updateDoc } from 'firebase/firestore'
 import tomato from "../tomato.png"
-
+import { BsFillCheckSquareFill } from "react-icons/bs"
 
 const Settings = ({ userData, checkDocumentExists }) => {
   const [numbers, setNumbers] = useState([])
@@ -50,15 +50,17 @@ const Settings = ({ userData, checkDocumentExists }) => {
     <div>
         {user ? <div>
           <h2>Settings</h2>
-          <span>Change Focus Time: </span><input type='number' ref={focusTime} /><button onClick={focusTimeSettings}>Save</button>
+          <p>Logged in as: <span className='user-name'>{user.displayName}</span></p> 
+          <span>Change Focus Time: </span><input style={{ display: 'inline-block', verticalAlign: 'middle' }} type='number' ref={focusTime} /><BsFillCheckSquareFill className='saveIcon' style={{ display: 'inline-block', verticalAlign: 'middle' }} onClick={focusTimeSettings} />
           <br />
-          <span>Change Break Time: </span><input type='number' ref={breakTime} /><button onClick={breakTimeSettings}>Save</button>
+          <br />
+          <span>Change Break Time: </span><input style={{ display: 'inline-block', verticalAlign: 'middle' }} type='number' ref={breakTime} /><BsFillCheckSquareFill className='saveIcon' style={{ display: 'inline-block', verticalAlign: 'middle' }} onClick={breakTimeSettings} />
           <h3>Total Completed Sessions: {userData.completedSessions}</h3>
           {numbers.map((number, index) => {
             return <img alt='tomato' className='small-tomato' src={tomato} key={index} />
           })}
           <br />
-          <button onClick={() => auth.signOut()}>Logout</button>
+          <button className='signout-button' onClick={() => auth.signOut()}>Logout</button>
           </div> : ""}
     </div>
   )

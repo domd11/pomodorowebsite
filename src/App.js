@@ -85,7 +85,7 @@ function App() {
   return (
     <div className="App">
       <h1>Study Timer</h1>
-      {user ? <img className='pfp-image' src={user.photoURL} alt={user.displayName} /> : ""}
+      
 
       <h2>Completed Sessions: {focusSessionCompleted}</h2>
         
@@ -101,7 +101,7 @@ function App() {
       {breakTimerStart ? <BreakTimer setBreakTimerStart={setBreakTimerStart} userData={userData} /> : ""}
       
       {!user && !loading ? 
-        <div><h3>Login to customize study time, save sessions, and more!</h3>
+        <div><h3>Login to customize study time and save sessions!</h3>
       <button onClick={login}>Login with Google</button></div>
        : 
       <div>

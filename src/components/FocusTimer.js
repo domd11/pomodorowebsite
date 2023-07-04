@@ -40,8 +40,11 @@ const Timer = ({ setFocusTimerStart, setFocusSessionCompleted, focusSessionCompl
     }
   }, [countdown]);
 
+useEffect(() => {
+      checkIfUser();
+}, [])
+
   useEffect(() => {
-    checkIfUser()
     if (!isPaused) {
       intervalRef.current = setInterval(() => {
         setCountdown(prevCountdown => {

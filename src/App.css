@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Caprasimo&family=Martian+Mono&display=swap');
 .App {
   text-align: center;
   padding: 10px;
@@ -45,6 +46,10 @@
   margin-right: 2px;
 }
 
+.icon:hover {
+  cursor: pointer;
+}
+
 .timer {
   font-size: 30px;
 }
@@ -75,5 +80,49 @@
 }
 
 .start-button:hover {
-  color: blue;
+  cursor: pointer;
+  opacity: 50%;
+}
+
+* {
+  font-family: 'Martian Mono', monospace;
+}
+
+.big-icon:hover{
+  cursor: pointer;
+  opacity: 50%;
+}
+
+.user-name {
+  text-decoration: underline;
+  font-style: italic;
+}
+.saveIcon {
+  height: 21px;
+  width: 21px;
+
+  margin-left: 2px;
+}
+
+.saveIcon:hover {
+  opacity: 50%;
+  cursor: pointer;
+}
+
+.signout-button {
+  margin-top: 30px;
+  background-color: red;
+  color: white;
+  border: none;
+  padding: 10px 40px;
+  border-radius: 50px;
+}
+
+.signout-button:hover {
+  opacity: 50%;
+  cursor: pointer;
+}
+
+.icon:hover{
+  opacity: 50%;
 }
