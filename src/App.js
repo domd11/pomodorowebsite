@@ -9,6 +9,7 @@ import { GoogleAuthProvider, signInWithPopup, signInWithRedirect } from 'firebas
 import { auth, db } from './firebase';
 import Settings from './components/Settings';
 import { doc, getDoc, setDoc } from 'firebase/firestore';
+import Navbar from './components/Navbar';
 function App() {
   const [numbers, setNumbers] = useState([]);
   const [focusTimerStart, setFocusTimerStart] = useState(false);
@@ -84,6 +85,7 @@ function App() {
  
   return (
     <div className="App">
+    <Navbar/>
       <h1>Study Timer</h1>
       
 

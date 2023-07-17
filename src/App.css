@@ -1,7 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Caprasimo&family=Martian+Mono&display=swap');
 .App {
   text-align: center;
-  padding: 10px;
 }
 
 .App-logo {
@@ -125,4 +124,26 @@
 
 .icon:hover{
   opacity: 50%;
+}
+
+.navbar > li {
+  display: inline;
+  float: left;
+}
+
+.navbar {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #333;
+}
+
+.navbar > .name {
+  font-size: 30px;
+  color: white;
+}
+
+.nav-icon {
+  vertical-align: center;
 }
